@@ -1,13 +1,19 @@
 export default function Header() {
   return (
-    <header className="bg-white border-b border-stone-200 px-8 py-6">
+    <header className="bg-white/80 backdrop-blur-md border-b border-beige-100 px-8 py-6 sticky top-0 z-10">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         <div>
-          <h1 className="text-3xl font-bold text-stone-900 tracking-tight">AI Business Email</h1>
-          <p className="text-sm text-stone-600 mt-1.5 font-medium">Claude AI로 전문적인 이메일을 작성하세요</p>
+          <h1 className="text-2xl font-extrabold text-stone-800 tracking-tight flex items-center gap-2">
+            ✨ 신과장 이메일 잘쓰세요 툴
+          </h1>
+          <p className="text-sm text-stone-500 mt-1 font-medium tracking-wide">
+            신과장 전용 이메일 툴
+          </p>
         </div>
         <div className="flex items-center gap-3">
-          <span className="px-4 py-2 bg-stone-100 text-stone-700 text-sm font-semibold rounded-full">Phase 3</span>
+          <span className="px-4 py-1.5 bg-beige-50 border border-beige-200 text-beige-800 text-xs font-bold rounded-full shadow-sm">
+            Phase 3
+          </span>
         </div>
       </div>
     </header>

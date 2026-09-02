@@ -11,36 +11,42 @@ const menuItems = [
 
 export default function Sidebar({ activeTab, onTabChange }) {
   return (
-    <aside className="w-72 bg-white border-r border-stone-200 flex flex-col">
-      <div className="p-6 border-b border-stone-100">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-gradient-to-br from-stone-700 to-stone-900 rounded-2xl flex items-center justify-center text-white text-2xl shadow-sm">
+    <aside className="w-72 bg-white border-r border-beige-100 flex flex-col shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-20">
+      <div className="p-7 border-b border-beige-50">
+        <div className="flex items-center gap-3.5">
+          <div className="w-12 h-12 bg-beige-100 rounded-2xl flex items-center justify-center text-2xl shadow-inner border border-beige-200/50">
             ✉️
           </div>
           <div>
-            <h2 className="font-bold text-stone-900 text-lg">Email Tools</h2>
-            <p className="text-xs text-stone-500 font-medium">기능을 선택하세요</p>
+            <h2 className="font-bold text-stone-800 text-lg tracking-tight">Email Tools</h2>
+            <p className="text-xs text-stone-400 font-medium mt-0.5">원하시는 기능을 선택하세요</p>
           </div>
         </div>
       </div>
       
-      <nav className="flex-1 overflow-y-auto p-4">
-        <ul className="space-y-1.5">
+      <nav className="flex-1 overflow-y-auto p-5 scrollbar-hide">
+        <ul className="space-y-2">
           {menuItems.map((item) => (
             <li key={item.id}>
               <button
                 onClick={() => onTabChange(item.id)}
-                className={`w-full text-left px-4 py-3.5 rounded-xl transition-all font-medium ${
+                className={`w-full text-left px-4 py-3.5 rounded-2xl transition-all duration-300 ease-out font-medium group ${
                   activeTab === item.id
-                    ? 'bg-stone-900 text-white shadow-md'
-                    : 'text-stone-700 hover:bg-stone-50'
+                    ? 'bg-beige-50 border border-beige-200/60 shadow-sm text-beige-900 translate-x-1'
+                    : 'bg-transparent text-stone-500 hover:bg-beige-50/50 hover:text-stone-700 hover:translate-x-1'
                 }`}
               >
-                <div className="flex items-center gap-3">
-                  <span className="text-xl">{item.icon}</span>
+                <div className="flex items-center gap-3.5">
+                  <span className={`text-xl transition-transform duration-300 ${activeTab === item.id ? 'scale-110' : 'group-hover:scale-110'}`}>
+                    {item.icon}
+                  </span>
                   <div className="flex-1">
-                    <div className="text-sm font-semibold">{item.label}</div>
-                    <div className="text-xs opacity-80 mt-0.5">{item.description}</div>
+                    <div className={`text-sm ${activeTab === item.id ? 'font-bold' : 'font-semibold'}`}>
+                      {item.label}
+                    </div>
+                    <div className={`text-xs mt-0.5 ${activeTab === item.id ? 'text-beige-600' : 'text-stone-400'}`}>
+                      {item.description}
+                    </div>
                   </div>
                 </div>
               </button>
@@ -49,10 +55,12 @@ export default function Sidebar({ activeTab, onTabChange }) {
         </ul>
       </nav>
 
-      <div className="p-4 border-t border-stone-100">
-        <div className="bg-stone-50 rounded-xl p-4 text-xs text-stone-600">
-          <p className="font-bold mb-1.5 text-stone-800">💡 Tip</p>
-          <p className="leading-relaxed">Claude AI가 비즈니스 이메일 작성을 도와드립니다.</p>
+      <div className="p-5">
+        <div className="bg-gradient-to-br from-beige-50 to-white border border-beige-100 rounded-2xl p-4 text-xs text-stone-600 shadow-sm">
+          <p className="font-bold mb-1.5 text-beige-800 flex items-center gap-1.5">
+            <span className="animate-pulse">💡</span> Tip
+          </p>
+          <p className="leading-relaxed text-stone-500">Claude AI가 비즈니스 이메일 작성을 스마트하게 도와드립니다.</p>
         </div>
       </div>
     </aside>
