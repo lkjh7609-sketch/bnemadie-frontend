@@ -1,4 +1,6 @@
 const API_BASE = import.meta.env.VITE_API_URL || 'https://amail-c6ud.onrender.com/api';
+let currentApiKey = null;
+
 
 export const setApiKey = (key) => {
   currentApiKey = key;
