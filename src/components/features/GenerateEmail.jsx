@@ -27,7 +27,12 @@ export default function GenerateEmail({ setResult, loading, setLoading }) {
     try {
       const data = await fetchAPI('/email/generate', {
         method: 'POST',
-        body: JSON.stringify({ ...formData, language: finalLanguage })
+        body: JSON.stringify({
+          input: formData.userInput,
+          outputLang: finalLanguage,
+          tone: formData.tone,
+          length: formData.length
+        })
       })
       setResult(data.email)
     } catch (error) {
@@ -44,7 +49,7 @@ export default function GenerateEmail({ setResult, loading, setLoading }) {
         <h2 className="text-xl font-bold text-stone-900">이메일 작성</h2>
         <p className="text-sm text-stone-600 mt-1.5">작성하고 싶은 이메일의 내용을 간단히 설명해주세요.</p>
       </div>
-      
+
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
           <label className="block text-sm font-bold text-stone-800 mb-2">이메일 내용</label>
