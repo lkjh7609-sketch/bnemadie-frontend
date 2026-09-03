@@ -3,6 +3,8 @@ import { fetchAPI } from '../../api'
 
 export default function SmartGenerate({ setResult, loading, setLoading }) {
   const [userInput, setUserInput] = useState('')
+  const [inputLanguage, setInputLanguage] = useState('korean')
+  const [outputLanguage, setOutputLanguage] = useState('korean')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -15,7 +17,7 @@ export default function SmartGenerate({ setResult, loading, setLoading }) {
     try {
       const data = await fetchAPI('/email/smart-generate', {
         method: 'POST',
-        body: JSON.stringify({ userInput })
+        body: JSON.stringify({ userInput, inputLang: inputLanguage, outputLang: outputLanguage })
       })
       setResult(data)
     } catch (error) {
@@ -39,7 +41,7 @@ export default function SmartGenerate({ setResult, loading, setLoading }) {
           <div className="text-sm text-amber-900">
             <p className="font-bold mb-1.5">AI가 자동으로 분석합니다:</p>
             <ul className="list-disc list-inside space-y-1 text-amber-800 leading-relaxed">
-              <li>적절한 언어 (한국어/영어/일본어/중국어 등)</li>
+            <li>입력·출력 언어에 맞는 이메일 작성</li>
               <li>상황에 맞는 톤 (격식/캐주얼)</li>
               <li>필요한 이메일 길이</li>
             </ul>
@@ -56,6 +58,27 @@ export default function SmartGenerate({ setResult, loading, setLoading }) {
             className="w-full px-4 py-3 border border-stone-300 rounded-xl focus:ring-2 focus:ring-stone-900 focus:border-stone-900 min-h-[150px] bg-white text-stone-900"
             placeholder="예: 내일 회의 일정을 다음주로 변경하고 싶다고 부장님께 말씀드려야 해"
           />
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="block text-sm font-bold text-stone-800 mb-2">입력 언어</label>
+            <select value={inputLanguage} onChange={(e) => setInputLanguage(e.target.value)} className="w-full px-4 py-2.5 border border-stone-300 rounded-xl focus:ring-2 focus:ring-stone-900 bg-white text-stone-900 font-medium">
+              <option value="korean">한국어</option>
+              <option value="english">영어</option>
+              <option value="japanese">일본어</option>
+              <option value="chinese">중국어</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-bold text-stone-800 mb-2">출력 언어</label>
+            <select value={outputLanguage} onChange={(e) => setOutputLanguage(e.target.value)} className="w-full px-4 py-2.5 border border-stone-300 rounded-xl focus:ring-2 focus:ring-stone-900 bg-white text-stone-900 font-medium">
+              <option value="korean">한국어</option>
+              <option value="english">영어</option>
+              <option value="japanese">일본어</option>
+              <option value="chinese">중국어</option>
+            </select>
+          </div>
         </div>
 
         <button

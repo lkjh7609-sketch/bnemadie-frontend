@@ -18,8 +18,7 @@ export default function Sidebar({ activeTab, onTabChange }) {
             ✉️
           </div>
           <div>
-            <h2 className="font-bold text-stone-800 text-lg tracking-tight">Email Tools</h2>
-            <p className="text-xs text-stone-400 font-medium mt-0.5">원하시는 기능을 선택하세요</p>
+            <h2 className="font-bold text-stone-800 text-lg tracking-tight">Ben Lee's Workplace</h2>
           </div>
         </div>
       </div>
@@ -55,14 +54,6 @@ export default function Sidebar({ activeTab, onTabChange }) {
         </ul>
       </nav>
 
-      <div className="p-5">
-        <div className="bg-gradient-to-br from-beige-50 to-white border border-beige-100 rounded-2xl p-4 text-xs text-stone-600 shadow-sm">
-          <p className="font-bold mb-1.5 text-beige-800 flex items-center gap-1.5">
-            <span className="animate-pulse">💡</span> Tip
-          </p>
-          <p className="leading-relaxed text-stone-500">Claude AI가 비즈니스 이메일 작성을 스마트하게 도와드립니다.</p>
-        </div>
-      </div>
     </aside>
   )
 }

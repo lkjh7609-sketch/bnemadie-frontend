@@ -37,7 +37,14 @@ export default function ResultDisplay({ result, loading, activeTab }) {
           <pre className="whitespace-pre-wrap text-sm text-stone-800 leading-relaxed">{result}</pre>
         ) : (
           <div className="space-y-4">
-            {Object.entries(result).map(([key, value]) => (
+            {(result.subject || result.content) && (
+              <div className="bg-white rounded-lg border border-stone-200 p-4 space-y-3">
+                {result.subject && <div><h4 className="font-bold text-stone-700 mb-1">제목</h4><p className="text-sm text-stone-800">{result.subject}</p></div>}
+                {result.content && <div><h4 className="font-bold text-stone-700 mb-1">본문</h4><p className="text-sm text-stone-800 whitespace-pre-wrap leading-relaxed">{result.content}</p></div>}
+                {result.koreanTranslation && <div className="border-t border-stone-200 pt-3"><h4 className="font-bold text-stone-700 mb-1">한국어 번역</h4><p className="text-sm text-stone-800 whitespace-pre-wrap leading-relaxed">{result.koreanTranslation}</p></div>}
+              </div>
+            )}
+            {Object.entries(result).filter(([key]) => !['subject', 'content', 'koreanTranslation'].includes(key)).map(([key, value]) => (
               <div key={key} className="border-b border-stone-200 pb-4 last:border-0">
                 <h4 className="font-bold text-stone-700 mb-2.5 capitalize text-sm">{key.replace(/_/g, ' ')}</h4>
                 {Array.isArray(value) ? (

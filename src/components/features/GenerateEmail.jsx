@@ -4,8 +4,8 @@ import { fetchAPI } from '../../api'
 export default function GenerateEmail({ setResult, loading, setLoading }) {
   const [formData, setFormData] = useState({
     userInput: '',
-    language: 'korean',
-    customLanguage: '',
+    inputLanguage: 'korean',
+    outputLanguage: 'korean',
     tone: 'formal',
     length: 'medium'
   })
@@ -17,19 +17,14 @@ export default function GenerateEmail({ setResult, loading, setLoading }) {
       return
     }
 
-    const finalLanguage = formData.language === 'other' ? formData.customLanguage : formData.language
-    if (formData.language === 'other' && !formData.customLanguage.trim()) {
-      alert('언어를 입력해주세요')
-      return
-    }
-
     setLoading(true)
     try {
       const data = await fetchAPI('/email/generate', {
         method: 'POST',
         body: JSON.stringify({
           input: formData.userInput,
-          outputLang: finalLanguage,
+          inputLang: formData.inputLanguage,
+          outputLang: formData.outputLanguage,
           tone: formData.tone,
           length: formData.length
         })
@@ -61,19 +56,32 @@ export default function GenerateEmail({ setResult, loading, setLoading }) {
           />
         </div>
 
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <div>
-            <label className="block text-sm font-bold text-stone-800 mb-2">언어</label>
+            <label className="block text-sm font-bold text-stone-800 mb-2">입력 언어</label>
             <select
-              value={formData.language}
-              onChange={(e) => setFormData({ ...formData, language: e.target.value })}
+              value={formData.inputLanguage}
+              onChange={(e) => setFormData({ ...formData, inputLanguage: e.target.value })}
               className="w-full px-4 py-2.5 border border-stone-300 rounded-xl focus:ring-2 focus:ring-stone-900 bg-white text-stone-900 font-medium"
             >
               <option value="korean">한국어</option>
-              <option value="english">English</option>
-              <option value="japanese">日本語</option>
-              <option value="chinese">中文</option>
-              <option value="other">기타 (직접입력)</option>
+              <option value="english">영어</option>
+              <option value="japanese">일본어</option>
+              <option value="chinese">중국어</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-bold text-stone-800 mb-2">출력 언어</label>
+            <select
+              value={formData.outputLanguage}
+              onChange={(e) => setFormData({ ...formData, outputLanguage: e.target.value })}
+              className="w-full px-4 py-2.5 border border-stone-300 rounded-xl focus:ring-2 focus:ring-stone-900 bg-white text-stone-900 font-medium"
+            >
+              <option value="korean">한국어</option>
+              <option value="english">영어</option>
+              <option value="japanese">일본어</option>
+              <option value="chinese">중국어</option>
             </select>
           </div>
 
@@ -103,19 +111,6 @@ export default function GenerateEmail({ setResult, loading, setLoading }) {
             </select>
           </div>
         </div>
-
-        {formData.language === 'other' && (
-          <div>
-            <label className="block text-sm font-bold text-stone-800 mb-2">원하는 언어</label>
-            <input
-              type="text"
-              value={formData.customLanguage}
-              onChange={(e) => setFormData({ ...formData, customLanguage: e.target.value })}
-              className="w-full px-4 py-2.5 border border-stone-300 rounded-xl focus:ring-2 focus:ring-stone-900 bg-white text-stone-900"
-              placeholder="예: Spanish, French, German 등"
-            />
-          </div>
-        )}
 
         <button
           type="submit"

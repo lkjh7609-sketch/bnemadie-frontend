@@ -4,10 +4,10 @@ export default function Header() {
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         <div>
           <h1 className="text-2xl font-extrabold text-stone-800 tracking-tight flex items-center gap-2">
-            ✨ 신과장 이메일 잘쓰세요 툴
+            ✨ Ben Lee's Workplace
           </h1>
           <p className="text-sm text-stone-500 mt-1 font-medium tracking-wide">
-            신과장 전용 이메일 툴
+            Business Email Workspace
           </p>
         </div>
         <div className="flex items-center gap-3">
