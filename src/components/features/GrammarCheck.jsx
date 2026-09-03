@@ -57,7 +57,7 @@ export default function GrammarCheck({ setResult, loading, setLoading, outputLan
           disabled={loading}
           className="w-full py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
         >
-          {loading ? '검사 중...' : '문법 검사 시작'}
+          {loading ? '얼른 이메일 보내고 칼퇴하자...' : '문법 검사 시작'}
         </button>
       </form>
     </div>

@@ -63,7 +63,7 @@ export default function AnalyzeEmail({ setResult, loading, setLoading, outputLan
           disabled={loading}
           className="w-full py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
         >
-          {loading ? '분석 중...' : '구조 분석 시작'}
+          {loading ? '얼른 이메일 보내고 칼퇴하자...' : '구조 분석 시작'}
         </button>
       </form>
     </div>

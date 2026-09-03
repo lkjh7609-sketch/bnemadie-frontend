@@ -80,7 +80,7 @@ export default function ReplyEmail({ setResult, loading, setLoading, outputLangu
           disabled={loading}
           className="w-full py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
         >
-          {loading ? '답장 생성 중...' : '답장 생성'}
+          {loading ? '얼른 이메일 보내고 칼퇴하자...' : '답장 생성'}
         </button>
       </form>
     </div>

@@ -10,11 +10,6 @@ export default function Header() {
             A calm space for sharper communication
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <span className="px-4 py-1.5 bg-beige-50 border border-beige-200 text-beige-800 text-xs font-bold rounded-full shadow-sm">
-            <span className="status-dot" /> Private workspace
-          </span>
-        </div>
       </div>
     </header>
   )

@@ -33,7 +33,7 @@ export default function ResultDisplay({ result, loading }) {
     return (
       <div className="flex flex-col items-center justify-center h-full min-h-[400px]">
         <div className="w-12 h-12 border-4 border-stone-200 border-t-stone-900 rounded-full animate-spin mb-4"></div>
-        <p className="text-stone-600 font-medium">AI가 처리 중입니다...</p>
+        <p className="text-stone-600 font-medium">얼른 이메일 보내고 칼퇴하자...</p>
       </div>
     )
   }

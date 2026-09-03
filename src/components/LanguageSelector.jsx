@@ -11,7 +11,7 @@ export default function LanguageSelector({ outputLanguage, customLanguage, setOu
       <div className="language-chip">
         <label htmlFor="input-language">입력 언어</label>
         <select id="input-language" value="auto" disabled className="language-auto">
-          <option value="auto">AI 자동 감지</option>
+          <option value="auto">자동 감지</option>
         </select>
       </div>
       <div className="language-chip">

@@ -64,7 +64,7 @@ export default function ExtractActions({ setResult, loading, setLoading, outputL
           disabled={loading}
           className="w-full py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
         >
-          {loading ? '추출 중...' : '액션 아이템 추출'}
+          {loading ? '얼른 이메일 보내고 칼퇴하자...' : '액션 아이템 추출'}
         </button>
       </form>
     </div>

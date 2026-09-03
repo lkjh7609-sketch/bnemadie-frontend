@@ -35,7 +35,7 @@ export default function SummarizeEmail({ setResult, loading, setLoading, outputL
         <div className="flex items-start gap-2">
           <span className="text-indigo-600 text-lg">📊</span>
           <div className="text-sm text-indigo-900">
-            <p className="font-medium mb-1">AI가 추출하는 정보:</p>
+            <p className="font-medium mb-1">자동으로 추출하는 정보:</p>
             <ul className="list-disc list-inside space-y-1 text-indigo-800">
               <li>핵심 요약 (한 문장)</li>
               <li>주요 내용 (bullet points)</li>
@@ -62,7 +62,7 @@ export default function SummarizeEmail({ setResult, loading, setLoading, outputL
           disabled={loading}
           className="w-full py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
         >
-          {loading ? '분석 중...' : '요약 & 분석 시작'}
+          {loading ? '얼른 이메일 보내고 칼퇴하자...' : '요약 & 분석 시작'}
         </button>
       </form>
     </div>

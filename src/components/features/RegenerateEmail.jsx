@@ -86,7 +86,7 @@ export default function RegenerateEmail({ setResult, loading, setLoading, output
           disabled={loading}
           className="w-full py-3 bg-rose-600 text-white rounded-lg hover:bg-rose-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
         >
-          {loading ? '재작성 중...' : '톤 변경하여 재작성'}
+          {loading ? '얼른 이메일 보내고 칼퇴하자...' : '톤 변경하여 재작성'}
         </button>
       </form>
     </div>

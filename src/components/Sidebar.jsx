@@ -1,6 +1,6 @@
 const menuItems = [
   { id: 'generate', label: '이메일 작성', icon: '✍️', description: '새 이메일 생성' },
-  { id: 'smart-generate', label: 'Smart 작성', icon: '🧠', description: 'AI 자동 분석' },
+  { id: 'smart-generate', label: 'Smart 작성', icon: '🧠', description: '상황 자동 분석' },
   { id: 'reply', label: '답장 작성', icon: '↩️', description: '이메일 답장' },
   { id: 'grammar', label: '문법 검사', icon: '✓', description: '영문 교정' },
   { id: 'summarize', label: '요약 & 분석', icon: '📋', description: '핵심 요약' },

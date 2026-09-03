@@ -87,7 +87,7 @@ export default function GenerateEmail({ setResult, loading, setLoading, outputLa
           disabled={loading}
           className="w-full py-3.5 bg-stone-900 text-white rounded-xl hover:bg-stone-800 disabled:bg-stone-400 disabled:cursor-not-allowed transition-colors font-bold text-sm shadow-sm"
         >
-          {loading ? '생성 중...' : '이메일 생성'}
+          {loading ? '얼른 이메일 보내고 칼퇴하자...' : '이메일 생성'}
         </button>
       </form>
     </div>
