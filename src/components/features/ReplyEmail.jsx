@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fetchAPI } from '../../api'
 
-export default function ReplyEmail({ setResult, loading, setLoading }) {
+export default function ReplyEmail({ setResult, loading, setLoading, outputLanguage }) {
   const [formData, setFormData] = useState({
     originalEmail: '',
     replyIntent: '',
@@ -21,7 +21,9 @@ export default function ReplyEmail({ setResult, loading, setLoading }) {
         method: 'POST',
         body: JSON.stringify({
           input: `Original email:\n${formData.originalEmail}\n\nReply instructions:\n${formData.replyIntent}`,
-          tone: formData.tone
+          tone: formData.tone,
+          outputLang: outputLanguage,
+          inputLang: 'auto'
         })
       })
       setResult(data)

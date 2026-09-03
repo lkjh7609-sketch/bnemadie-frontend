@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import { fetchAPI } from '../../api'
 
-export default function GenerateEmail({ setResult, loading, setLoading }) {
+export default function GenerateEmail({ setResult, loading, setLoading, outputLanguage }) {
   const [formData, setFormData] = useState({
     userInput: '',
-    inputLanguage: 'korean',
-    outputLanguage: 'korean',
     tone: 'formal',
     length: 'medium'
   })
@@ -23,8 +21,8 @@ export default function GenerateEmail({ setResult, loading, setLoading }) {
         method: 'POST',
         body: JSON.stringify({
           input: formData.userInput,
-          inputLang: formData.inputLanguage,
-          outputLang: formData.outputLanguage,
+          inputLang: 'auto',
+          outputLang: outputLanguage,
           tone: formData.tone,
           length: formData.length
         })
@@ -56,35 +54,7 @@ export default function GenerateEmail({ setResult, loading, setLoading }) {
           />
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div>
-            <label className="block text-sm font-bold text-stone-800 mb-2">입력 언어</label>
-            <select
-              value={formData.inputLanguage}
-              onChange={(e) => setFormData({ ...formData, inputLanguage: e.target.value })}
-              className="w-full px-4 py-2.5 border border-stone-300 rounded-xl focus:ring-2 focus:ring-stone-900 bg-white text-stone-900 font-medium"
-            >
-              <option value="korean">한국어</option>
-              <option value="english">영어</option>
-              <option value="japanese">일본어</option>
-              <option value="chinese">중국어</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-bold text-stone-800 mb-2">출력 언어</label>
-            <select
-              value={formData.outputLanguage}
-              onChange={(e) => setFormData({ ...formData, outputLanguage: e.target.value })}
-              className="w-full px-4 py-2.5 border border-stone-300 rounded-xl focus:ring-2 focus:ring-stone-900 bg-white text-stone-900 font-medium"
-            >
-              <option value="korean">한국어</option>
-              <option value="english">영어</option>
-              <option value="japanese">일본어</option>
-              <option value="chinese">중국어</option>
-            </select>
-          </div>
-
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           <div>
             <label className="block text-sm font-bold text-stone-800 mb-2">톤</label>
             <select

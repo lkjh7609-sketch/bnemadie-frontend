@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fetchAPI } from '../../api'
 
-export default function SummarizeEmail({ setResult, loading, setLoading }) {
+export default function SummarizeEmail({ setResult, loading, setLoading, outputLanguage }) {
   const [emailText, setEmailText] = useState('')
 
   const handleSubmit = async (e) => {
@@ -15,7 +15,7 @@ export default function SummarizeEmail({ setResult, loading, setLoading }) {
     try {
       const data = await fetchAPI('/email/summarize', {
         method: 'POST',
-        body: JSON.stringify({ input: emailText })
+        body: JSON.stringify({ input: emailText, inputLang: 'auto', outputLang: outputLanguage })
       })
       setResult(data)
     } catch (error) {

@@ -7,10 +7,22 @@ import AnalyzeEmail from './features/AnalyzeEmail'
 import ExtractActions from './features/ExtractActions'
 import RegenerateEmail from './features/RegenerateEmail'
 import ResultDisplay from './ResultDisplay'
+import LanguageSelector from './LanguageSelector'
+import { useEffect, useState } from 'react'
 
 export default function MainContent({ activeTab, result, setResult, loading, setLoading }) {
+  const [outputLanguage, setOutputLanguage] = useState('korean')
+  const [customLanguage, setCustomLanguage] = useState('')
+
+  useEffect(() => {
+    setResult(null)
+    setLoading(false)
+  }, [activeTab, setResult, setLoading])
+
+  const selectedOutputLanguage = outputLanguage === 'other' ? customLanguage.trim() : outputLanguage
+
   const renderFeature = () => {
-    const props = { setResult, loading, setLoading }
+    const props = { setResult, loading, setLoading, outputLanguage: selectedOutputLanguage }
     
     switch (activeTab) {
       case 'generate': return <GenerateEmail {...props} />
@@ -26,17 +38,23 @@ export default function MainContent({ activeTab, result, setResult, loading, set
   }
 
   return (
-    <main className="flex-1 overflow-y-auto bg-[#faf8f5]">
+    <main className="flex-1 overflow-y-auto">
       <div className="max-w-7xl mx-auto p-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* 왼쪽 입력 영역 */}
-          <div key={`input-${activeTab}`} className="bg-white rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white p-7 animate-fade-in-up transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+          <div key={`input-${activeTab}`} className="glass-panel p-7 animate-fade-in-up">
+            <LanguageSelector
+              outputLanguage={outputLanguage}
+              customLanguage={customLanguage}
+              setOutputLanguage={setOutputLanguage}
+              setCustomLanguage={setCustomLanguage}
+            />
             {renderFeature()}
           </div>
           
           {/* 오른쪽 결과 영역 */}
-          <div key={`result-${activeTab}`} className="bg-white rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white p-7 animate-fade-in-up transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]" style={{ animationDelay: '100ms' }}>
+          <div key={`result-${activeTab}`} className="glass-panel p-7 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
             <ResultDisplay result={result} loading={loading} activeTab={activeTab} />
           </div>
 

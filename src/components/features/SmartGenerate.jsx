@@ -1,10 +1,8 @@
 import { useState } from 'react'
 import { fetchAPI } from '../../api'
 
-export default function SmartGenerate({ setResult, loading, setLoading }) {
+export default function SmartGenerate({ setResult, loading, setLoading, outputLanguage }) {
   const [userInput, setUserInput] = useState('')
-  const [inputLanguage, setInputLanguage] = useState('korean')
-  const [outputLanguage, setOutputLanguage] = useState('korean')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -17,7 +15,7 @@ export default function SmartGenerate({ setResult, loading, setLoading }) {
     try {
       const data = await fetchAPI('/email/smart-generate', {
         method: 'POST',
-        body: JSON.stringify({ userInput, inputLang: inputLanguage, outputLang: outputLanguage })
+        body: JSON.stringify({ userInput, inputLang: 'auto', outputLang: outputLanguage })
       })
       setResult(data)
     } catch (error) {
@@ -58,27 +56,6 @@ export default function SmartGenerate({ setResult, loading, setLoading }) {
             className="w-full px-4 py-3 border border-stone-300 rounded-xl focus:ring-2 focus:ring-stone-900 focus:border-stone-900 min-h-[150px] bg-white text-stone-900"
             placeholder="예: 내일 회의 일정을 다음주로 변경하고 싶다고 부장님께 말씀드려야 해"
           />
-        </div>
-
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className="block text-sm font-bold text-stone-800 mb-2">입력 언어</label>
-            <select value={inputLanguage} onChange={(e) => setInputLanguage(e.target.value)} className="w-full px-4 py-2.5 border border-stone-300 rounded-xl focus:ring-2 focus:ring-stone-900 bg-white text-stone-900 font-medium">
-              <option value="korean">한국어</option>
-              <option value="english">영어</option>
-              <option value="japanese">일본어</option>
-              <option value="chinese">중국어</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-bold text-stone-800 mb-2">출력 언어</label>
-            <select value={outputLanguage} onChange={(e) => setOutputLanguage(e.target.value)} className="w-full px-4 py-2.5 border border-stone-300 rounded-xl focus:ring-2 focus:ring-stone-900 bg-white text-stone-900 font-medium">
-              <option value="korean">한국어</option>
-              <option value="english">영어</option>
-              <option value="japanese">일본어</option>
-              <option value="chinese">중국어</option>
-            </select>
-          </div>
         </div>
 
         <button

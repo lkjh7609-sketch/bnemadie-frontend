@@ -1,4 +1,34 @@
-export default function ResultDisplay({ result, loading, activeTab }) {
+const labels = {
+  original: '원문',
+  improved: '개선된 문장',
+  changes: '변경 사항',
+  before: '변경 전',
+  after: '변경 후',
+  explanation: '변경 설명',
+  summary: '요약',
+  keyPoints: '핵심 내용',
+  actionItems: '액션 아이템',
+  deadline: '마감일',
+  tone: '톤',
+  reasoning: '분석 이유',
+  reviewSummary: '검토 요약'
+}
+
+const labelFor = (key) => labels[key] || key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').trim()
+
+function ValueView({ value }) {
+  if (Array.isArray(value)) {
+    return <div className="space-y-2">{value.map((item, index) => <div key={index} className="rounded-xl bg-white/70 p-3 shadow-neu-inset">{typeof item === 'object' && item !== null ? <ValueView value={item} /> : <p className="whitespace-pre-wrap text-sm text-stone-800">{String(item)}</p>}</div>)}</div>
+  }
+
+  if (typeof value === 'object' && value !== null) {
+    return <div className="space-y-2">{Object.entries(value).map(([key, nestedValue]) => <div key={key}><h5 className="text-xs font-bold text-stone-500 mb-1">{labelFor(key)}</h5><ValueView value={nestedValue} /></div>)}</div>
+  }
+
+  return <p className="whitespace-pre-wrap text-sm text-stone-800 leading-relaxed">{value === null ? '없음' : String(value)}</p>
+}
+
+export default function ResultDisplay({ result, loading }) {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center h-full min-h-[400px]">
@@ -47,23 +77,7 @@ export default function ResultDisplay({ result, loading, activeTab }) {
             {Object.entries(result).filter(([key]) => !['subject', 'content', 'koreanTranslation'].includes(key)).map(([key, value]) => (
               <div key={key} className="border-b border-stone-200 pb-4 last:border-0">
                 <h4 className="font-bold text-stone-700 mb-2.5 capitalize text-sm">{key.replace(/_/g, ' ')}</h4>
-                {Array.isArray(value) ? (
-                  <ul className="space-y-2.5">
-                    {value.map((item, idx) => (
-                      <li key={idx} className="bg-white p-3.5 rounded-lg border border-stone-200">
-                        {typeof item === 'object' ? (
-                          <pre className="text-xs text-stone-600 whitespace-pre-wrap leading-relaxed">{JSON.stringify(item, null, 2)}</pre>
-                        ) : (
-                          <p className="text-sm text-stone-800 leading-relaxed">{item}</p>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                ) : typeof value === 'object' ? (
-                  <pre className="text-xs text-stone-600 whitespace-pre-wrap bg-white p-3.5 rounded-lg border border-stone-200 leading-relaxed">{JSON.stringify(value, null, 2)}</pre>
-                ) : (
-                  <p className="text-sm text-stone-800 whitespace-pre-wrap leading-relaxed">{value}</p>
-                )}
+                <ValueView value={value} />
               </div>
             ))}
           </div>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fetchAPI } from '../../api'
 
-export default function RegenerateEmail({ setResult, loading, setLoading }) {
+export default function RegenerateEmail({ setResult, loading, setLoading, outputLanguage }) {
   const [formData, setFormData] = useState({
     originalEmail: '',
     newTone: 'formal'
@@ -20,7 +20,8 @@ export default function RegenerateEmail({ setResult, loading, setLoading }) {
         method: 'POST',
         body: JSON.stringify({
           content: formData.originalEmail,
-          tone: formData.newTone
+          tone: formData.newTone,
+          outputLang: outputLanguage
         })
       })
       setResult(data)
