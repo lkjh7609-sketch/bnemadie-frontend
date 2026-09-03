@@ -38,7 +38,7 @@ export default function RegenerateEmail({ setResult, loading, setLoading, output
       <h2 className="text-xl font-semibold text-gray-900">톤 변경</h2>
       <p className="text-sm text-gray-600">기존 이메일의 톤과 스타일을 다르게 재작성합니다.</p>
       
-      <div className="bg-rose-50 border border-rose-200 rounded-lg p-4">
+      <div className="advice-box bg-rose-50 border border-rose-200 rounded-lg p-4">
         <div className="flex items-start gap-2">
           <span className="text-rose-600 text-lg">🎭</span>
           <div className="text-sm text-rose-900">

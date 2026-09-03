@@ -43,7 +43,7 @@ export default function MainContent({ activeTab, result, setResult, loading, set
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* 왼쪽 입력 영역 */}
-          <div key={`input-${activeTab}`} className="glass-panel p-7 animate-fade-in-up">
+          <div key={`input-${activeTab}`} className="glass-panel p-7">
             <LanguageSelector
               outputLanguage={outputLanguage}
               customLanguage={customLanguage}
@@ -54,7 +54,7 @@ export default function MainContent({ activeTab, result, setResult, loading, set
           </div>
           
           {/* 오른쪽 결과 영역 */}
-          <div key={`result-${activeTab}`} className="glass-panel p-7 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+          <div key={`result-${activeTab}`} className="glass-panel p-7">
             <ResultDisplay result={result} loading={loading} activeTab={activeTab} />
           </div>
 

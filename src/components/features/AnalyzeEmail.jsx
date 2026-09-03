@@ -31,7 +31,7 @@ export default function AnalyzeEmail({ setResult, loading, setLoading, outputLan
       <h2 className="text-xl font-semibold text-gray-900">구조 분석</h2>
       <p className="text-sm text-gray-600">이메일의 맥락, 관계, 비즈니스 의미를 심층 분석합니다.</p>
       
-      <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+      <div className="advice-box bg-purple-50 border border-purple-200 rounded-lg p-4">
         <div className="flex items-start gap-2">
           <span className="text-purple-600 text-lg">🔬</span>
           <div className="text-sm text-purple-900">

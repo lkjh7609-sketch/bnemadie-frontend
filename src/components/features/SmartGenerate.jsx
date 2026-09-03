@@ -33,7 +33,7 @@ export default function SmartGenerate({ setResult, loading, setLoading, outputLa
         <p className="text-sm text-stone-600 mt-1.5">상황에 맞는 톤과 스타일을 자동으로 선택합니다.</p>
       </div>
       
-      <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+      <div className="advice-box bg-amber-50 border border-amber-200 rounded-xl p-4">
         <div className="flex items-start gap-2.5">
           <span className="text-amber-600 text-lg">💡</span>
           <div className="text-sm text-amber-900">

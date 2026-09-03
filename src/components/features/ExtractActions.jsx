@@ -31,7 +31,7 @@ export default function ExtractActions({ setResult, loading, setLoading, outputL
       <h2 className="text-xl font-semibold text-gray-900">액션 추출</h2>
       <p className="text-sm text-gray-600">이메일에서 실행 가능한 작업을 상세하게 추출합니다.</p>
       
-      <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+      <div className="advice-box bg-emerald-50 border border-emerald-200 rounded-lg p-4">
         <div className="flex items-start gap-2">
           <span className="text-emerald-600 text-lg">✅</span>
           <div className="text-sm text-emerald-900">

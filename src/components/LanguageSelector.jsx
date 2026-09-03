@@ -9,12 +9,6 @@ export default function LanguageSelector({ outputLanguage, customLanguage, setOu
   return (
     <div className="language-settings">
       <div className="language-chip">
-        <label htmlFor="input-language">입력 언어</label>
-        <select id="input-language" value="auto" disabled className="language-auto">
-          <option value="auto">자동 감지</option>
-        </select>
-      </div>
-      <div className="language-chip">
         <label htmlFor="output-language">출력 언어</label>
         <select id="output-language" value={outputLanguage} onChange={(e) => setOutputLanguage(e.target.value)}>
           {languages.map(([value, label]) => <option key={value} value={value}>{label}</option>)}

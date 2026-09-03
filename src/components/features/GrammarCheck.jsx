@@ -31,7 +31,7 @@ export default function GrammarCheck({ setResult, loading, setLoading, outputLan
       <h2 className="text-xl font-semibold text-gray-900">문법 검사</h2>
       <p className="text-sm text-gray-600">영문 이메일의 문법, 철자, 스타일을 개선합니다.</p>
       
-      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+      <div className="advice-box bg-yellow-50 border border-yellow-200 rounded-lg p-4">
         <div className="flex items-start gap-2">
           <span className="text-yellow-600 text-lg">⚠️</span>
           <div className="text-sm text-yellow-900">
