@@ -52,6 +52,21 @@ body {
   border-width: 0 0 1px;
 }
 
+.workspace-toolbar {
+  background: rgba(255, 255, 255, .32);
+  border-bottom: 1px solid rgba(255, 255, 255, .6);
+}
+
+.home-button {
+  padding: .45rem .9rem;
+  border: 1px solid rgba(180, 157, 137, .45);
+  border-radius: .8rem;
+  background: rgba(255, 255, 255, .72);
+  color: #5b483b;
+  font-size: .8rem;
+  font-weight: 700;
+}
+
 .glass-sidebar {
   background: rgba(255, 255, 255, .48);
   border-width: 0 1px 0 0;
@@ -66,6 +81,15 @@ body {
 .glass-panel:hover {
   transform: none;
 }
+
+.home-card { min-height: min(640px, calc(100vh - 160px)); }
+.home-eyebrow { color: #ad8061; font-size: .85rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.home-title { margin-top: .75rem; color: #342d29; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.15; font-weight: 800; letter-spacing: -.04em; }
+.home-description { max-width: 680px; margin-top: 1.25rem; color: #675a51; font-size: 1.05rem; line-height: 1.8; }
+.home-guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 2.5rem; }
+.home-guide-grid > div { padding: 1.1rem 1.25rem; border-radius: 1rem; background: rgba(255,255,255,.54); box-shadow: inset 3px 3px 8px rgba(126,98,73,.06), inset -3px -3px 8px rgba(255,255,255,.8); }
+.home-guide-grid h2 { color: #4a4039; font-size: 1rem; font-weight: 800; }
+.home-guide-grid p { margin-top: .35rem; color: #766960; font-size: .9rem; line-height: 1.6; }
 
 .language-settings {
   display: grid;
@@ -133,6 +157,24 @@ body {
 @media (max-width: 640px) {
   .language-settings { grid-template-columns: 1fr; }
   .language-custom { grid-column: auto; }
+}
+
+@media (max-width: 768px) {
+  .app-shell { min-height: 100vh; height: auto; flex-direction: column; }
+  .workspace-sidebar { width: 100%; flex: none; border-right: 0; border-bottom: 1px solid rgba(180,157,137,.25); }
+  .workspace-sidebar > div:first-child { padding: 1rem 1.25rem; }
+  .workspace-sidebar nav { padding: .7rem .75rem; overflow-x: auto; }
+  .workspace-sidebar nav ul { display: flex; gap: .5rem; min-width: max-content; }
+  .workspace-sidebar nav li { flex: 0 0 auto; }
+  .workspace-sidebar nav button { width: auto; min-width: 7.2rem; padding: .65rem .8rem; }
+  .workspace-sidebar nav button > div > div > div:last-child { display: none; }
+  .workspace-toolbar { padding: .6rem 1rem; }
+  .main-content { overflow: visible; }
+  .feature-page, .home-page { padding: 1rem; }
+  .glass-panel { border-radius: 1.25rem; }
+  .home-card { min-height: auto; padding: 1.5rem; }
+  .home-description { font-size: .95rem; }
+  .home-guide-grid { grid-template-columns: 1fr; margin-top: 1.5rem; }
 }
 
 .language-chip label {

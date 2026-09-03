@@ -11,7 +11,7 @@ const menuItems = [
 
 export default function Sidebar({ activeTab, onTabChange }) {
   return (
-    <aside className="w-72 bg-white border-r border-beige-100 flex flex-col shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-20">
+    <aside className="workspace-sidebar w-72 bg-white border-r border-beige-100 flex flex-col shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-20">
       <div className="p-7 border-b border-beige-50">
         <div>
           <h2 className="font-bold text-stone-800 text-lg tracking-tight">Ben Lee's Workplace</h2>

@@ -1,15 +1,10 @@
-export default function Header() {
+export default function Header({ onHome }) {
   return (
-    <header className="glass-header px-8 py-5 sticky top-0 z-10">
-      <div className="flex items-center justify-between max-w-7xl mx-auto">
-        <div>
-          <h1 className="text-2xl font-extrabold text-stone-800 tracking-tight flex items-center gap-2">
-            ✨ Ben Lee's Workplace
-          </h1>
-          <p className="text-sm text-stone-500 mt-1 font-medium tracking-wide">
-            A calm space for sharper communication
-          </p>
-        </div>
+    <header className="workspace-toolbar px-8 py-3 sticky top-0 z-10">
+      <div className="flex items-center justify-end max-w-7xl mx-auto">
+        <button type="button" onClick={onHome} className="home-button" aria-label="홈으로 이동">
+          홈
+        </button>
       </div>
     </header>
   )

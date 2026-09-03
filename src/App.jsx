@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
+import Header from './components/Header'
 import Sidebar from './components/Sidebar'
 import MainContent from './components/MainContent'
 
 function App() {
-  const [activeTab, setActiveTab] = useState('generate')
+  const [activeTab, setActiveTab] = useState(null)
   const [result, setResult] = useState(null)
   const [loading, setLoading] = useState(false)
   const [showIntro, setShowIntro] = useState(true)
@@ -23,6 +24,7 @@ function App() {
       {showIntro && <div className="intro-screen"><div className="intro-title">Welcome 신과장</div></div>}
       <Sidebar activeTab={activeTab} onTabChange={handleTabChange} />
       <div className="flex-1 flex flex-col">
+        <Header onHome={() => handleTabChange(null)} />
         <MainContent 
           activeTab={activeTab}
           result={result}
