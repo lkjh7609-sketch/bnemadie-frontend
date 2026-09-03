@@ -19,7 +19,7 @@ export default function MainContent({ activeTab, result, setResult, loading, set
     setLoading(false)
   }, [activeTab, setResult, setLoading])
 
-  const selectedOutputLanguage = outputLanguage === 'other' ? customLanguage.trim() : outputLanguage
+  const selectedOutputLanguage = outputLanguage === 'other' ? (customLanguage.trim() || 'korean') : outputLanguage
 
   const renderFeature = () => {
     const props = { setResult, loading, setLoading, outputLanguage: selectedOutputLanguage }
