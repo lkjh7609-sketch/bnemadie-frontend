@@ -18,9 +18,12 @@ export default function RegenerateEmail({ setResult, loading, setLoading }) {
     try {
       const data = await fetchAPI('/email/regenerate', {
         method: 'POST',
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          content: formData.originalEmail,
+          tone: formData.newTone
+        })
       })
-      setResult(data.regenerated_email)
+      setResult(data)
     } catch (error) {
       alert(`오류: ${error.message}`)
       setResult(null)

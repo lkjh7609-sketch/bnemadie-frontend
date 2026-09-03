@@ -19,9 +19,12 @@ export default function ReplyEmail({ setResult, loading, setLoading }) {
     try {
       const data = await fetchAPI('/email/reply', {
         method: 'POST',
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          input: `Original email:\n${formData.originalEmail}\n\nReply instructions:\n${formData.replyIntent}`,
+          tone: formData.tone
+        })
       })
-      setResult(data.reply)
+      setResult(data)
     } catch (error) {
       alert(`오류: ${error.message}`)
       setResult(null)

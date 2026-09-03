@@ -15,7 +15,7 @@ export default function AnalyzeEmail({ setResult, loading, setLoading }) {
     try {
       const data = await fetchAPI('/email/analyze', {
         method: 'POST',
-        body: JSON.stringify({ emailText })
+        body: JSON.stringify({ input: emailText })
       })
       setResult(data)
     } catch (error) {

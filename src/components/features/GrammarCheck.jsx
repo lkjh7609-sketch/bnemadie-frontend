@@ -15,7 +15,7 @@ export default function GrammarCheck({ setResult, loading, setLoading }) {
     try {
       const data = await fetchAPI('/email/grammar', {
         method: 'POST',
-        body: JSON.stringify({ emailText })
+        body: JSON.stringify({ input: emailText })
       })
       setResult(data)
     } catch (error) {

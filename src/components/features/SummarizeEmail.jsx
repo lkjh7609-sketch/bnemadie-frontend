@@ -15,7 +15,7 @@ export default function SummarizeEmail({ setResult, loading, setLoading }) {
     try {
       const data = await fetchAPI('/email/summarize', {
         method: 'POST',
-        body: JSON.stringify({ emailText })
+        body: JSON.stringify({ input: emailText })
       })
       setResult(data)
     } catch (error) {

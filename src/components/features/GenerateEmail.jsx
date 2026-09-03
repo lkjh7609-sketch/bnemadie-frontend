@@ -34,7 +34,7 @@ export default function GenerateEmail({ setResult, loading, setLoading }) {
           length: formData.length
         })
       })
-      setResult(data.email)
+      setResult(data)
     } catch (error) {
       alert(`오류: ${error.message}`)
       setResult(null)
