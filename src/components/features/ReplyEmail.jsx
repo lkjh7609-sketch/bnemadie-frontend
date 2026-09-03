@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fetchAPI } from '../../api'
 
-export default function ReplyEmail({ setResult, loading, setLoading, outputLanguage }) {
+export default function ReplyEmail({ setResult, loading, setLoading, outputLanguage, languageSelector }) {
   const [formData, setFormData] = useState({
     originalEmail: '',
     replyIntent: '',
@@ -39,6 +39,7 @@ export default function ReplyEmail({ setResult, loading, setLoading, outputLangu
     <div className="space-y-4">
       <h2 className="text-xl font-semibold text-gray-900">답장 작성</h2>
       <p className="text-sm text-gray-600">받은 이메일에 대한 답장을 작성합니다.</p>
+      {languageSelector}
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

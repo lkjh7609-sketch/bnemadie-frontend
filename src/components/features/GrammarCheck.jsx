@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fetchAPI } from '../../api'
 
-export default function GrammarCheck({ setResult, loading, setLoading, outputLanguage }) {
+export default function GrammarCheck({ setResult, loading, setLoading, outputLanguage, languageSelector }) {
   const [emailText, setEmailText] = useState('')
 
   const handleSubmit = async (e) => {
@@ -30,6 +30,7 @@ export default function GrammarCheck({ setResult, loading, setLoading, outputLan
     <div className="space-y-4">
       <h2 className="text-xl font-semibold text-gray-900">문법 검사</h2>
       <p className="text-sm text-gray-600">영문 이메일의 문법, 철자, 스타일을 개선합니다.</p>
+      {languageSelector}
       
       <div className="advice-box bg-yellow-50 border border-yellow-200 rounded-lg p-4">
         <div className="flex items-start gap-2">
@@ -48,7 +49,12 @@ export default function GrammarCheck({ setResult, loading, setLoading, outputLan
             value={emailText}
             onChange={(e) => setEmailText(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[200px] font-mono text-sm"
-            placeholder="Dear Mr. Smith,\n\nI hope your doing well. I wanted to reach out regarding...\n\nBest regard,\nJohn"
+            placeholder={`Dear Mr. Smith,
+
+I hope you're doing well. I wanted to reach out regarding...
+
+Best regards,
+John`}
           />
         </div>
 

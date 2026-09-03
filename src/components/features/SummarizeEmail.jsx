@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fetchAPI } from '../../api'
 
-export default function SummarizeEmail({ setResult, loading, setLoading, outputLanguage }) {
+export default function SummarizeEmail({ setResult, loading, setLoading, outputLanguage, languageSelector }) {
   const [emailText, setEmailText] = useState('')
 
   const handleSubmit = async (e) => {
@@ -30,6 +30,7 @@ export default function SummarizeEmail({ setResult, loading, setLoading, outputL
     <div className="space-y-4">
       <h2 className="text-xl font-semibold text-gray-900">요약 & 분석</h2>
       <p className="text-sm text-gray-600">이메일의 핵심 내용, 액션 아이템, 마감일을 추출합니다.</p>
+      {languageSelector}
       
       <div className="advice-box bg-indigo-50 border border-indigo-200 rounded-lg p-4">
         <div className="flex items-start gap-2">

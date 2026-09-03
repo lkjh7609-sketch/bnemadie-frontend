@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fetchAPI } from '../../api'
 
-export default function GenerateEmail({ setResult, loading, setLoading, outputLanguage }) {
+export default function GenerateEmail({ setResult, loading, setLoading, outputLanguage, languageSelector }) {
   const [formData, setFormData] = useState({
     userInput: '',
     tone: 'formal',
@@ -41,6 +41,7 @@ export default function GenerateEmail({ setResult, loading, setLoading, outputLa
       <div>
         <h2 className="text-xl font-bold text-stone-900">이메일 작성</h2>
         <p className="text-sm text-stone-600 mt-1.5">작성하고 싶은 이메일의 내용을 간단히 설명해주세요.</p>
+        {languageSelector}
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-5">

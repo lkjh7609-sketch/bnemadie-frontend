@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fetchAPI } from '../../api'
 
-export default function ExtractActions({ setResult, loading, setLoading, outputLanguage }) {
+export default function ExtractActions({ setResult, loading, setLoading, outputLanguage, languageSelector }) {
   const [emailText, setEmailText] = useState('')
 
   const handleSubmit = async (e) => {
@@ -30,6 +30,7 @@ export default function ExtractActions({ setResult, loading, setLoading, outputL
     <div className="space-y-4">
       <h2 className="text-xl font-semibold text-gray-900">액션 추출</h2>
       <p className="text-sm text-gray-600">이메일에서 실행 가능한 작업을 상세하게 추출합니다.</p>
+      {languageSelector}
       
       <div className="advice-box bg-emerald-50 border border-emerald-200 rounded-lg p-4">
         <div className="flex items-start gap-2">
@@ -55,7 +56,9 @@ export default function ExtractActions({ setResult, loading, setLoading, outputL
             value={emailText}
             onChange={(e) => setEmailText(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[200px]"
-            placeholder="액션 아이템을 추출하고 싶은 이메일 내용을 붙여넣으세요\n\n예: 프로젝트 회의록, 업무 지시, 협업 요청 등"
+            placeholder={`액션 아이템을 추출하고 싶은 이메일 내용을 붙여넣으세요
+
+예: 프로젝트 회의록, 업무 지시, 협업 요청 등`}
           />
         </div>
 

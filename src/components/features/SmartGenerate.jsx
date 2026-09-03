@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fetchAPI } from '../../api'
 
-export default function SmartGenerate({ setResult, loading, setLoading, outputLanguage }) {
+export default function SmartGenerate({ setResult, loading, setLoading, outputLanguage, languageSelector }) {
   const [userInput, setUserInput] = useState('')
 
   const handleSubmit = async (e) => {
@@ -31,6 +31,7 @@ export default function SmartGenerate({ setResult, loading, setLoading, outputLa
       <div>
         <h2 className="text-xl font-bold text-stone-900">Smart 작성</h2>
         <p className="text-sm text-stone-600 mt-1.5">상황에 맞는 톤과 스타일을 자동으로 선택합니다.</p>
+        {languageSelector}
       </div>
       
       <div className="advice-box bg-amber-50 border border-amber-200 rounded-xl p-4">

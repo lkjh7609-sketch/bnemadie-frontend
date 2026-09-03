@@ -70,9 +70,10 @@ body {
 .language-settings {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: .75rem;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
+  gap: .5rem;
+  width: min(100%, 280px);
+  margin: .65rem 0 1rem;
+  padding: .6rem .7rem;
   border-radius: 1.35rem;
   background: rgba(235, 225, 215, .52);
   box-shadow: inset 5px 5px 12px rgba(126, 98, 73, .10), inset -5px -5px 12px rgba(255,255,255,.78);
@@ -136,9 +137,9 @@ body {
 
 .language-chip label {
   display: block;
-  margin-bottom: .5rem;
+  margin-bottom: .3rem;
   color: #4a4039;
-  font-size: .875rem;
+  font-size: .75rem;
   font-weight: 700;
 }
 
@@ -150,7 +151,7 @@ body {
   border-radius: .9rem;
   background: rgba(255,255,255,.58);
   color: #342d29;
-  padding: .7rem 1rem;
+  padding: .45rem .7rem;
   outline: none;
   box-shadow: inset 0 1px 2px rgba(104,76,53,.04);
 }

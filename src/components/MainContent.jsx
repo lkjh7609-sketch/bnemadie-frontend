@@ -21,8 +21,17 @@ export default function MainContent({ activeTab, result, setResult, loading, set
 
   const selectedOutputLanguage = outputLanguage === 'other' ? (customLanguage.trim() || 'korean') : outputLanguage
 
+  const languageSelector = (
+    <LanguageSelector
+      outputLanguage={outputLanguage}
+      customLanguage={customLanguage}
+      setOutputLanguage={setOutputLanguage}
+      setCustomLanguage={setCustomLanguage}
+    />
+  )
+
   const renderFeature = () => {
-    const props = { setResult, loading, setLoading, outputLanguage: selectedOutputLanguage }
+    const props = { setResult, loading, setLoading, outputLanguage: selectedOutputLanguage, languageSelector }
     
     switch (activeTab) {
       case 'generate': return <GenerateEmail {...props} />
@@ -44,12 +53,6 @@ export default function MainContent({ activeTab, result, setResult, loading, set
           
           {/* 왼쪽 입력 영역 */}
           <div key={`input-${activeTab}`} className="glass-panel p-7">
-            <LanguageSelector
-              outputLanguage={outputLanguage}
-              customLanguage={customLanguage}
-              setOutputLanguage={setOutputLanguage}
-              setCustomLanguage={setCustomLanguage}
-            />
             {renderFeature()}
           </div>
           

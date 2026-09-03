@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fetchAPI } from '../../api'
 
-export default function RegenerateEmail({ setResult, loading, setLoading, outputLanguage }) {
+export default function RegenerateEmail({ setResult, loading, setLoading, outputLanguage, languageSelector }) {
   const [formData, setFormData] = useState({
     originalEmail: '',
     newTone: 'formal'
@@ -37,6 +37,7 @@ export default function RegenerateEmail({ setResult, loading, setLoading, output
     <div className="space-y-4">
       <h2 className="text-xl font-semibold text-gray-900">톤 변경</h2>
       <p className="text-sm text-gray-600">기존 이메일의 톤과 스타일을 다르게 재작성합니다.</p>
+      {languageSelector}
       
       <div className="advice-box bg-rose-50 border border-rose-200 rounded-lg p-4">
         <div className="flex items-start gap-2">
