@@ -68,13 +68,15 @@ body {
   font-weight: 700;
 }
 
-.header-home-button { margin-bottom: .55rem; }
+.header-home-button { flex: none; }
 
 .doosan-ticker {
   position: relative;
   overflow: hidden;
-  width: 100%;
-  border-top: 1px solid rgba(180,157,137,.2);
+  flex: 1;
+  min-width: 0;
+  border: 1px solid rgba(180,157,137,.2);
+  border-radius: .8rem;
   background: rgba(255,255,255,.28);
   white-space: nowrap;
 }
@@ -94,8 +96,8 @@ body {
 .ticker-track:hover { animation-play-state: paused; color: #3f3028; }
 
 @keyframes tickerMove {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(100%); }
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
 }
 
 .glass-sidebar {
@@ -199,8 +201,7 @@ body {
   .workspace-sidebar nav li { flex: 0 0 auto; }
   .workspace-sidebar nav button { width: auto; min-width: 7.2rem; padding: .65rem .8rem; }
   .workspace-sidebar nav button > div > div > div:last-child { display: none; }
-  .workspace-toolbar { padding: .6rem 1rem 0; }
-  .header-home-button { margin-bottom: .45rem; }
+  .workspace-toolbar { padding: .6rem 1rem; }
   .ticker-track { font-size: .72rem; animation-duration: 18s; }
   .main-content { overflow: visible; }
   .feature-page, .home-page { padding: 1rem; }
