@@ -1,52 +1,67 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { fetchAPI } from '../api'
 
-const alternatives = {
-  plan: { label: 'plan', options: ['protocol', 'study plan', 'development plan'], note: '시험·임상 문맥에서는 protocol이 더 적절할 수 있습니다.' },
-  planning: { label: 'planning', options: ['protocol development', 'study planning', 'development planning'], note: '시험계획 수립을 의미할 때 사용합니다.' },
-  drug: { label: 'drug', options: ['medicinal product', 'pharmaceutical product', 'investigational product'], note: '임상시험 문맥에서는 investigational product를 검토하세요.' },
-  test: { label: 'test', options: ['assay', 'analysis', 'testing'], note: '시험 방법이나 분석 절차를 가리킬 때 assay 또는 analysis를 검토하세요.' },
-  issue: { label: 'issue', options: ['deviation', 'nonconformity', 'finding'], note: '품질·GMP 문맥에서는 사실관계에 따라 deviation 또는 nonconformity를 사용합니다.' },
-  change: { label: 'change', options: ['change control', 'amendment', 'revision'], note: '승인·평가 절차가 포함되면 change control이 적절할 수 있습니다.' },
-  fix: { label: 'fix', options: ['corrective action', 'remediation', 'CAPA'], note: '재발 방지까지 포함하면 CAPA를 검토하세요.' },
-  report: { label: 'report', options: ['assessment', 'evaluation', 'technical report'], note: '평가 결과인지 기술문서인지에 따라 선택하세요.' }
+const fallbackTerms = {
+  plan: ['protocol', 'study plan', 'development plan'], planning: ['protocol development', 'study planning', 'development planning'],
+  drug: ['medicinal product', 'pharmaceutical product', 'investigational product'], test: ['assay', 'analysis', 'testing'],
+  issue: ['deviation', 'nonconformity', 'finding'], change: ['change control', 'amendment', 'revision'],
+  fix: ['corrective action', 'remediation', 'CAPA'], report: ['assessment', 'evaluation', 'technical report']
 }
 
-function splitText(text) {
-  const keys = Object.keys(alternatives).join('|')
-  return String(text).split(new RegExp(`(\\b(?:${keys})\\b)`, 'gi'))
+function cleanSelection(value) {
+  return value.trim().replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}%()-]+$/gu, '')
+}
+
+function fallbackSuggestions(term) {
+  const known = fallbackTerms[term.toLowerCase()]
+  return (known || [`${term} assessment`, `${term} evaluation`, `regulated ${term}`]).map((suggestion) => ({ term: suggestion, explanation: '문맥에 따라 제약·규제 업무에서 검토할 수 있는 표현입니다.' }))
 }
 
 export default function ProfessionalTermText({ text, onChange }) {
   const [currentText, setCurrentText] = useState(String(text))
-  const [selected, setSelected] = useState(null)
-  useEffect(() => {
-    setCurrentText(String(text))
-    setSelected(null)
-  }, [text])
-  const parts = useMemo(() => splitText(currentText), [currentText])
+  const [selection, setSelection] = useState(null)
+  const [suggestions, setSuggestions] = useState([])
+  const [suggesting, setSuggesting] = useState(false)
 
-  return (
-    <span className="professional-term-text">
-      {parts.map((part, index) => {
-        const entry = alternatives[part.toLowerCase()]
-        if (!entry) return <span key={index}>{part}</span>
-        return (
-          <span className="professional-term-wrap" key={`${part}-${index}`}>
-            <button type="button" className="professional-term" onClick={() => setSelected(selected?.index === index ? null : { ...entry, index })}>
-              {part}
-            </button>
-            {selected?.index === index && (
-              <span className="professional-term-popover" role="dialog">
-                <strong>{entry.label} 대체 전문 용어</strong>
-                <span className="professional-term-options">
-                  {entry.options.map((option) => <button type="button" key={option} onClick={() => { const nextText = parts.map((value, partIndex) => partIndex === index ? option : value).join(''); setCurrentText(nextText); onChange?.(nextText); setSelected(null) }}>{option}</button>)}
-                </span>
-                <small>{entry.note}</small>
-              </span>
-            )}
-          </span>
-        )
-      })}
-    </span>
-  )
+  useEffect(() => { setCurrentText(String(text)); setSelection(null); setSuggestions([]) }, [text])
+
+  const handleDoubleClick = async () => {
+    const browserSelection = window.getSelection()
+    const rawTerm = browserSelection?.toString() || ''
+    const term = cleanSelection(rawTerm)
+    if (!term || term.includes('\n') || term.length > 80 || !browserSelection?.rangeCount) return
+    const range = browserSelection.getRangeAt(0)
+    const offset = Math.min(range.startOffset, range.endOffset)
+    const actualTerm = cleanSelection(currentText.slice(offset, offset + rawTerm.length)) || term
+    const rect = range.getBoundingClientRect()
+    setSelection({ term: actualTerm, index: offset, left: rect.left, top: rect.bottom + 8 })
+    setSuggestions(fallbackSuggestions(actualTerm))
+    setSuggesting(true)
+    try {
+      const data = await fetchAPI('/terms/suggest', { method: 'POST', body: JSON.stringify({ term: actualTerm, context: currentText.slice(Math.max(0, offset - 180), offset + rawTerm.length + 180) }) })
+      if (data.suggestions?.length) setSuggestions(data.suggestions)
+    } catch { /* Fallback suggestions remain available. */ } finally { setSuggesting(false) }
+  }
+
+  const replaceTerm = (replacement) => {
+    if (!selection) return
+    const before = currentText.slice(0, selection.index)
+    const selected = currentText.slice(selection.index, selection.index + selection.term.length)
+    const suffix = currentText.slice(selection.index + selection.term.length)
+    const leading = selected.match(/^[^\p{L}\p{N}]*/u)?.[0] || ''
+    const trailing = selected.match(/[^\p{L}\p{N}]*$/u)?.[0] || ''
+    const nextText = `${before}${leading}${replacement}${trailing}${suffix}`
+    setCurrentText(nextText); onChange?.(nextText); setSelection(null); window.getSelection()?.removeAllRanges()
+  }
+
+  return <span className="professional-term-text" onDoubleClick={handleDoubleClick}>
+    <span>{currentText}</span>
+    {selection && <span className="professional-term-popover" role="dialog" style={{ left: `${Math.max(8, selection.left)}px`, top: `${selection.top}px` }}>
+      <strong>“{selection.term}” 대체 전문 용어</strong>
+      {suggesting && <small>전문 용어를 확인하는 중...</small>}
+      <span className="professional-term-options">{suggestions.map((suggestion) => <button type="button" key={suggestion.term} onClick={() => replaceTerm(suggestion.term)}>{suggestion.term}</button>)}</span>
+      {suggestions[0]?.explanation && <small>{suggestions[0].explanation}</small>}
+      <button type="button" className="professional-term-close" onClick={() => setSelection(null)}>닫기</button>
+    </span>}
+  </span>
 }

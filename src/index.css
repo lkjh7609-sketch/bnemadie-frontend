@@ -173,19 +173,8 @@ body {
 
 .professional-term-text { position: relative; }
 .professional-term-wrap { position: relative; display: inline; }
-.professional-term {
-  padding: 0 .08rem;
-  border: 0;
-  border-bottom: 1px dashed #a97852;
-  border-radius: .15rem;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
-}
-.professional-term:hover { background: #fff2df; color: #7b4b2e; }
 .professional-term-popover {
-  position: absolute;
+  position: fixed;
   z-index: 30;
   left: 0;
   top: calc(100% + .5rem);
@@ -211,6 +200,7 @@ body {
   font-size: .72rem;
 }
 .professional-term-popover small { color: #8b7363; }
+.professional-term-close { margin-top: .55rem; border: 0; background: transparent; color: #927967; font-size: .7rem; cursor: pointer; }
 .term-help { margin-top: .55rem; color: #9b8676; font-size: .7rem; }
 
 .advice-box > div > span {
