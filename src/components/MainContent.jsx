@@ -8,13 +8,11 @@ import ExtractActions from './features/ExtractActions'
 import RegenerateEmail from './features/RegenerateEmail'
 import ResultDisplay from './ResultDisplay'
 import LanguageSelector from './LanguageSelector'
-import RegulatoryReferenceSelector from './RegulatoryReferenceSelector'
 import { useEffect, useState } from 'react'
 
 export default function MainContent({ activeTab, result, setResult, loading, setLoading }) {
   const [outputLanguage, setOutputLanguage] = useState('korean')
   const [customLanguage, setCustomLanguage] = useState('')
-  const [regulatoryReferenceId, setRegulatoryReferenceId] = useState('none')
 
   useEffect(() => {
     setResult(null)
@@ -33,7 +31,7 @@ export default function MainContent({ activeTab, result, setResult, loading, set
   )
 
   const renderFeature = () => {
-    const props = { setResult, loading, setLoading, outputLanguage: selectedOutputLanguage, languageSelector, regulatoryReferenceId }
+    const props = { setResult, loading, setLoading, outputLanguage: selectedOutputLanguage, languageSelector }
     
     switch (activeTab) {
       case 'generate': return <GenerateEmail {...props} />
@@ -74,7 +72,6 @@ export default function MainContent({ activeTab, result, setResult, loading, set
   return (
     <main className="main-content flex-1 overflow-y-auto">
       <div className="feature-page max-w-7xl mx-auto p-8">
-        <RegulatoryReferenceSelector value={regulatoryReferenceId} onChange={setRegulatoryReferenceId} />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* 왼쪽 입력 영역 */}

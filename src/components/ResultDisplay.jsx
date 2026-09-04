@@ -74,19 +74,7 @@ export default function ResultDisplay({ result, loading }) {
                 {result.koreanTranslation && <div className="border-t border-stone-200 pt-3"><h4 className="font-bold text-stone-700 mb-1">한국어 번역</h4><p className="text-sm text-stone-800 whitespace-pre-wrap leading-relaxed">{result.koreanTranslation}</p></div>}
               </div>
             )}
-            {result.regulatorySources?.length > 0 && (
-              <div className="rounded-lg border border-amber-200 bg-amber-50/60 p-4">
-                <h4 className="font-bold text-stone-700 mb-2">참고한 규정·용어</h4>
-                {result.regulatorySources.map((source, index) => (
-                  <div key={index} className="text-sm text-stone-700 space-y-1">
-                    <p><strong>{source.agency}</strong> · {source.title}</p>
-                    {source.matchedTerms?.length > 0 && <p>적용 용어: {source.matchedTerms.map((term) => `${term.korean} (${term.english})`).join(', ')}</p>}
-                    {source.url && <a className="text-amber-800 underline" href={source.url} target="_blank" rel="noreferrer">공식 자료 확인</a>}
-                  </div>
-                ))}
-              </div>
-            )}
-            {Object.entries(result).filter(([key]) => !['subject', 'content', 'koreanTranslation', 'regulatorySources'].includes(key)).map(([key, value]) => (
+            {Object.entries(result).filter(([key]) => !['subject', 'content', 'koreanTranslation'].includes(key)).map(([key, value]) => (
               <div key={key} className="border-b border-stone-200 pb-4 last:border-0">
                 <h4 className="font-bold text-stone-700 mb-2.5 capitalize text-sm">{key.replace(/_/g, ' ')}</h4>
                 <ValueView value={value} />
