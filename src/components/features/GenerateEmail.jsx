@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { fetchAPI } from '../../api'
 import RecipientDetails from '../RecipientDetails'
 
-export default function GenerateEmail({ setResult, loading, setLoading, outputLanguage, languageSelector }) {
+export default function GenerateEmail({ setResult, loading, setLoading, outputLanguage, languageSelector, regulatoryReferenceId }) {
   const [formData, setFormData] = useState({
     userInput: '',
     tone: 'formal',
@@ -27,7 +27,8 @@ export default function GenerateEmail({ setResult, loading, setLoading, outputLa
           outputLang: outputLanguage,
           tone: formData.tone,
           length: formData.length,
-          recipientDetails
+          recipientDetails,
+          regulatoryReferenceId
         })
       })
       setResult(data)

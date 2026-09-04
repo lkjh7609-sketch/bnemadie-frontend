@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fetchAPI } from '../../api'
 
-export default function GrammarCheck({ setResult, loading, setLoading, outputLanguage, languageSelector }) {
+export default function GrammarCheck({ setResult, loading, setLoading, outputLanguage, languageSelector, regulatoryReferenceId }) {
   const [emailText, setEmailText] = useState('')
 
   const handleSubmit = async (e) => {
@@ -15,7 +15,7 @@ export default function GrammarCheck({ setResult, loading, setLoading, outputLan
     try {
       const data = await fetchAPI('/email/grammar', {
         method: 'POST',
-        body: JSON.stringify({ input: emailText, inputLang: 'auto', outputLang: outputLanguage })
+        body: JSON.stringify({ input: emailText, inputLang: 'auto', outputLang: outputLanguage, regulatoryReferenceId })
       })
       setResult(data)
     } catch (error) {

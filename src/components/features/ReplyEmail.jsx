@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { fetchAPI } from '../../api'
 import RecipientDetails from '../RecipientDetails'
 
-export default function ReplyEmail({ setResult, loading, setLoading, outputLanguage, languageSelector }) {
+export default function ReplyEmail({ setResult, loading, setLoading, outputLanguage, languageSelector, regulatoryReferenceId }) {
   const [formData, setFormData] = useState({
     originalEmail: '',
     replyIntent: '',
@@ -26,7 +26,8 @@ export default function ReplyEmail({ setResult, loading, setLoading, outputLangu
           tone: formData.tone,
           outputLang: outputLanguage,
           inputLang: 'auto',
-          recipientDetails
+          recipientDetails,
+          regulatoryReferenceId
         })
       })
       setResult(data)

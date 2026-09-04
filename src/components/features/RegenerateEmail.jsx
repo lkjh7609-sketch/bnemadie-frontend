@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { fetchAPI } from '../../api'
 import RecipientDetails from '../RecipientDetails'
 
-export default function RegenerateEmail({ setResult, loading, setLoading, outputLanguage, languageSelector }) {
+export default function RegenerateEmail({ setResult, loading, setLoading, outputLanguage, languageSelector, regulatoryReferenceId }) {
   const [formData, setFormData] = useState({
     originalEmail: '',
     newTone: 'formal'
@@ -24,7 +24,8 @@ export default function RegenerateEmail({ setResult, loading, setLoading, output
           content: formData.originalEmail,
           tone: formData.newTone,
           outputLang: outputLanguage,
-          recipientDetails
+          recipientDetails,
+          regulatoryReferenceId
         })
       })
       setResult(data)

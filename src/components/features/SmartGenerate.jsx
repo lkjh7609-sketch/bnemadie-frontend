@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { fetchAPI } from '../../api'
 import RecipientDetails from '../RecipientDetails'
 
-export default function SmartGenerate({ setResult, loading, setLoading, outputLanguage, languageSelector }) {
+export default function SmartGenerate({ setResult, loading, setLoading, outputLanguage, languageSelector, regulatoryReferenceId }) {
   const [userInput, setUserInput] = useState('')
   const [recipientDetails, setRecipientDetails] = useState({ recipientName: '', recipientCompany: '', recipientRole: '' })
 
@@ -17,7 +17,7 @@ export default function SmartGenerate({ setResult, loading, setLoading, outputLa
     try {
       const data = await fetchAPI('/email/smart-generate', {
         method: 'POST',
-        body: JSON.stringify({ userInput, inputLang: 'auto', outputLang: outputLanguage, recipientDetails })
+        body: JSON.stringify({ userInput, inputLang: 'auto', outputLang: outputLanguage, recipientDetails, regulatoryReferenceId })
       })
       setResult(data)
     } catch (error) {
