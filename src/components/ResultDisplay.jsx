@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react'
+import ProfessionalTermText from './ProfessionalTermText'
+
 const labels = {
   original: '원문',
   improved: '개선된 문장',
@@ -29,6 +32,34 @@ function ValueView({ value }) {
 }
 
 export default function ResultDisplay({ result, loading }) {
+  const [copied, setCopied] = useState(false)
+  const [editedContent, setEditedContent] = useState(result?.content || '')
+
+  useEffect(() => {
+    setEditedContent(result?.content || '')
+  }, [result?.content])
+
+  const copyResult = async () => {
+    const text = typeof result === 'string'
+      ? result
+        : result?.subject || result?.content
+        ? [`제목: ${result.subject || ''}`, `본문:\n${editedContent}`, result.koreanTranslation ? `한국어 번역:\n${result.koreanTranslation}` : ''].filter(Boolean).join('\n\n')
+        : JSON.stringify(result, null, 2)
+    try {
+      await navigator.clipboard.writeText(text)
+    } catch {
+      const textarea = document.createElement('textarea')
+      textarea.value = text
+      textarea.style.position = 'fixed'
+      textarea.style.opacity = '0'
+      document.body.appendChild(textarea)
+      textarea.select()
+      document.execCommand('copy')
+      textarea.remove()
+    }
+    setCopied(true)
+    window.setTimeout(() => setCopied(false), 1600)
+  }
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center h-full min-h-[400px]">
@@ -55,10 +86,10 @@ export default function ResultDisplay({ result, loading }) {
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold text-stone-900">결과</h3>
         <button
-          onClick={() => navigator.clipboard.writeText(typeof result === 'string' ? result : JSON.stringify(result, null, 2))}
+          onClick={copyResult}
           className="px-4 py-2 text-sm bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg transition-colors font-medium"
         >
-          📋 복사
+          {copied ? '복사됨' : '복사'}
         </button>
       </div>
       
@@ -70,8 +101,8 @@ export default function ResultDisplay({ result, loading }) {
             {(result.subject || result.content) && (
               <div className="bg-white rounded-lg border border-stone-200 p-4 space-y-3">
                 {result.subject && <div><h4 className="font-bold text-stone-700 mb-1">제목</h4><p className="text-sm text-stone-800">{result.subject}</p></div>}
-                {result.content && <div><h4 className="font-bold text-stone-700 mb-1">본문</h4><p className="text-sm text-stone-800 whitespace-pre-wrap leading-relaxed">{result.content}</p></div>}
-                {result.koreanTranslation && <div className="border-t border-stone-200 pt-3"><h4 className="font-bold text-stone-700 mb-1">한국어 번역</h4><p className="text-sm text-stone-800 whitespace-pre-wrap leading-relaxed">{result.koreanTranslation}</p></div>}
+                {result.content && <div><h4 className="font-bold text-stone-700 mb-1">본문</h4><p className="text-sm text-stone-800 whitespace-pre-wrap leading-relaxed"><ProfessionalTermText text={editedContent} onChange={setEditedContent} /></p><p className="term-help">밑줄이 있는 단어를 누르면 대체 가능한 전문 용어를 확인할 수 있습니다.</p></div>}
+                {result.koreanTranslation && <div className="border-t border-stone-200 pt-3"><h4 className="font-bold text-stone-700 mb-1">한국어 번역</h4><p className="text-sm text-stone-800 whitespace-pre-wrap leading-relaxed"><ProfessionalTermText text={result.koreanTranslation} /></p></div>}
               </div>
             )}
             {Object.entries(result).filter(([key]) => !['subject', 'content', 'koreanTranslation'].includes(key)).map(([key, value]) => (
