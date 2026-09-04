@@ -61,7 +61,7 @@ async function fetchWeather(game) {
 }
 
 function gameText(game) {
-  const score = game.status === 'SCHEDULED' ? '' : ` ${game.score.away}-${game.score.home}`
+  const score = game.status === 'SCHEDULED' || !game.score ? '' : ` ${game.score.away}-${game.score.home}`
   const inning = game.status === 'IN_PROGRESS' && game.currentInning ? ` · ${game.currentInning}회` : ''
   const weather = game.weather
   const weatherText = weather
@@ -77,23 +77,27 @@ export default function DoosanTicker() {
   useEffect(() => {
     let active = true
     const loadGame = async () => {
-      try {
-        const data = await fetchAPI('/sports/doosan')
-        if (active) {
-          let nextGame = data.games?.[0] || null
-          if (nextGame && !nextGame.weather) {
-            try {
-              nextGame = { ...nextGame, weather: await fetchWeather(nextGame) }
-            } catch {
-              // Keep the game ticker usable when the weather service is unavailable.
+      for (let attempt = 0; attempt < 3 && active; attempt += 1) {
+        try {
+          const data = await fetchAPI('/sports/doosan')
+          if (active) {
+            let nextGame = data.games?.[0] || null
+            if (nextGame && !nextGame.weather) {
+              try {
+                nextGame = { ...nextGame, weather: await fetchWeather(nextGame) }
+              } catch {
+                // Keep the game ticker usable when the weather service is unavailable.
+              }
             }
+            setGame(nextGame)
+            setError(false)
           }
-          setGame(nextGame)
-          setError(false)
+          return
+        } catch {
+          if (attempt < 2) await new Promise((resolve) => window.setTimeout(resolve, 1200))
         }
-      } catch {
-        if (active) setError(true)
       }
+      if (active) setError(true)
     }
     loadGame()
     const timer = window.setInterval(loadGame, 60_000)
@@ -104,7 +108,7 @@ export default function DoosanTicker() {
   }, [])
 
   const message = error
-    ? '오늘의 두산경기 · 경기 정보를 불러오는 중입니다'
+    ? '오늘의 두산경기 · 잠시 후 다시 연결합니다'
     : game
       ? gameText(game)
       : '오늘의 두산경기 · 예정된 경기가 없습니다'
