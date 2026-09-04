@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { fetchAPI } from '../../api'
+import RecipientDetails from '../RecipientDetails'
 
 export default function ReplyEmail({ setResult, loading, setLoading, outputLanguage, languageSelector }) {
   const [formData, setFormData] = useState({
@@ -7,6 +8,7 @@ export default function ReplyEmail({ setResult, loading, setLoading, outputLangu
     replyIntent: '',
     tone: 'formal'
   })
+  const [recipientDetails, setRecipientDetails] = useState({ recipientName: '', recipientCompany: '', recipientRole: '' })
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -23,7 +25,8 @@ export default function ReplyEmail({ setResult, loading, setLoading, outputLangu
           input: `Original email:\n${formData.originalEmail}\n\nReply instructions:\n${formData.replyIntent}`,
           tone: formData.tone,
           outputLang: outputLanguage,
-          inputLang: 'auto'
+          inputLang: 'auto',
+          recipientDetails
         })
       })
       setResult(data)
@@ -43,7 +46,7 @@ export default function ReplyEmail({ setResult, loading, setLoading, outputLangu
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">원본 이메일</label>
+          <div className="input-label-row"><label className="block text-sm font-medium text-gray-700">원본 이메일</label><RecipientDetails details={recipientDetails} setDetails={setRecipientDetails} /></div>
           <textarea
             value={formData.originalEmail}
             onChange={(e) => setFormData({ ...formData, originalEmail: e.target.value })}

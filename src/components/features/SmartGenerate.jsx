@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { fetchAPI } from '../../api'
+import RecipientDetails from '../RecipientDetails'
 
 export default function SmartGenerate({ setResult, loading, setLoading, outputLanguage, languageSelector }) {
   const [userInput, setUserInput] = useState('')
+  const [recipientDetails, setRecipientDetails] = useState({ recipientName: '', recipientCompany: '', recipientRole: '' })
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -15,7 +17,7 @@ export default function SmartGenerate({ setResult, loading, setLoading, outputLa
     try {
       const data = await fetchAPI('/email/smart-generate', {
         method: 'POST',
-        body: JSON.stringify({ userInput, inputLang: 'auto', outputLang: outputLanguage })
+        body: JSON.stringify({ userInput, inputLang: 'auto', outputLang: outputLanguage, recipientDetails })
       })
       setResult(data)
     } catch (error) {
@@ -50,7 +52,7 @@ export default function SmartGenerate({ setResult, loading, setLoading, outputLa
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <label className="block text-sm font-bold text-stone-800 mb-2">이메일 내용</label>
+          <div className="input-label-row"><label className="block text-sm font-bold text-stone-800">이메일 내용</label><RecipientDetails details={recipientDetails} setDetails={setRecipientDetails} /></div>
           <textarea
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
