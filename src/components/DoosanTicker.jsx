@@ -4,7 +4,11 @@ import { fetchAPI } from '../api'
 function gameText(game) {
   const score = game.status === 'SCHEDULED' ? '' : ` ${game.score.away}-${game.score.home}`
   const inning = game.status === 'IN_PROGRESS' && game.currentInning ? ` · ${game.currentInning}회` : ''
-  return `오늘의 두산경기 · ${game.startTime} · ${game.awayTeam} vs ${game.homeTeam}${score} · ${game.stadium} · ${game.statusLabel}${inning}`
+  const weather = game.weather
+  const weatherText = weather
+    ? ` · 경기 시각 ${weather.temperature}° ${weather.temperatureChange ? `(${weather.temperatureChange})` : ''} · 최고/최저 ${weather.maximum}°/${weather.minimum}° ${weather.maximumChange ? `(${weather.maximumChange})` : ''} · ${weather.sky} · 강수 ${weather.precipitationProbability}% · 습도 ${weather.humidity}% · 바람 ${weather.wind}m/s ${weather.windChange ? `(${weather.windChange})` : ''}`
+    : ''
+  return `오늘의 두산경기 · ${game.startTime} · ${game.awayTeam} vs ${game.homeTeam}${score} · ${game.stadium} · ${game.statusLabel}${inning}${weatherText}`
 }
 
 export default function DoosanTicker() {
